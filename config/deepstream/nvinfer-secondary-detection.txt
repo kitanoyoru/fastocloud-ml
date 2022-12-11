@@ -1,0 +1,16 @@
+[property]
+gpu-id=0
+net-scale-factor=1
+model-engine-file=./models/Secondary_Recognition/recognition.onnx_b1_gpu0_fp32.engine
+onnx-file=./models/Secondary_Recognition/recognition.onnx
+# 0=FP32 and 1=INT8 mode
+network-mode=0
+process-mode=2
+gpu-id=0
+gie-unique-id=2
+operate-on-gie-id=1
+operate-on-class-ids=2
+network-type=1
+output-tensor-meta=1
+secondary-reinfer-interval=30
+

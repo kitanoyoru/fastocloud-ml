@@ -1,0 +1,8 @@
+fastocloud:
+  endpoint: ""
+  login: ""
+  password: ""
+
+resolver:
+  embeddingsPath: ""
+  namesPath: ""
