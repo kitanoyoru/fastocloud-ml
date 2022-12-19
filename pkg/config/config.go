@@ -1,5 +1,15 @@
 package config
 
+type CliConfig struct {
+	Mode int
+}
+
+func NewCliConfig(mode int) *CliConfig {
+	return &CliConfig{
+		Mode: mode,
+	}
+}
+
 type FastocloudConfig struct {
 	Endpoint string
 	Login    string
@@ -14,13 +24,13 @@ func NewFastocloudConfig(endpoint, login, password string) *FastocloudConfig {
 	}
 }
 
-type ResolverConfig struct {
+type FaceRecognitionResolverConfig struct {
 	PathToEmbeddings string
 	PathToNames      string
 }
 
-func NewResolverConfig(embPath, namesPath string) *ResolverConfig {
-	return &ResolverConfig{
+func NewFaceRecognitionResolverConfig(embPath, namesPath string) *FaceRecognitionResolverConfig {
+	return &FaceRecognitionResolverConfig{
 		PathToEmbeddings: embPath,
 		PathToNames:      namesPath,
 	}

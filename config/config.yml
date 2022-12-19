@@ -3,6 +3,6 @@ fastocloud:
   login: ""
   password: ""
 
-resolver:
+face-recognition:
   embeddingsPath: ""
   namesPath: ""

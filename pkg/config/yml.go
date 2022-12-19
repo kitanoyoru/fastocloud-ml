@@ -6,7 +6,7 @@ const (
 	configDir = "./config"
 )
 
-func ReadConfigFile() (*FastocloudConfig, *ResolverConfig) {
+func ReadConfigFile() (*FastocloudConfig, *FaceRecognitionResolverConfig) {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
 
@@ -25,8 +25,8 @@ func ReadConfigFile() (*FastocloudConfig, *ResolverConfig) {
 	)
 
 	rc := NewResolverConfig(
-		viper.GetString("resolver.embeddingsPath"),
-		viper.GetString("resolver.namesPath"),
+		viper.GetString("face-recognition.embeddingsPath"),
+		viper.GetString("face-recognition.namesPath"),
 	)
 
 	return fc, rc

@@ -6,20 +6,23 @@ import (
 	"gitlab.com/fastogt/machine-learning/face_detection/golang/internal/resolver"
 	"gitlab.com/fastogt/machine-learning/face_detection/golang/internal/ws"
 	"gitlab.com/fastogt/machine-learning/face_detection/golang/pkg/config"
+	"gitlab.com/fastogt/machine-learning/face_detection/golang/pkg/logger"
 	"gitlab.com/fastogt/machine-learning/face_detection/golang/pkg/utils"
 )
 
 type App struct {
-	fastocloudConfig *config.FastocloudConfig
-	resolverConfig   *config.ResolverConfig
+	cliConfig                     *config.CliConfig
+	fastocloudConfig              *config.FastocloudConfig
+	faceRecognitionResolverConfig *config.ResolverConfig
 }
 
-func NewApp() *App {
-	fc, rc := config.ReadConfigFile()
+func NewApp(cc config.CliConfig) *App {
+	fc, fr := config.ReadConfigFile()
 
 	return &App{
-		fastocloudConfig: fc,
-		resolverConfig:   rc,
+		cliConfig:                     cc,
+		fastocloudConfig:              fc,
+		faceRecognitionResolverConfig: fr,
 	}
 }
 
@@ -30,6 +33,7 @@ func (a *App) Run() {
 		&a.fastocloudConfig.Password,
 	)
 
+	// TODO: Load files through goroutines
 	embeddings := utils.LoadNPZFile(a.resolverConfig.PathToEmbeddings)
 	names := utils.LoadNamesFile(a.resolverConfig.PathToNames)
 
@@ -37,5 +41,7 @@ func (a *App) Run() {
 
 	wsClient := ws.NewWSClient(r)
 
+	logger.Infof("Start listening Fastocloud websocket on host %s", a.fastocloudConfig.Endpoint)
 	fastocloud.Run(wsClient)
+	logger.Info("Stop listening Fastocloud websocket")
 }
