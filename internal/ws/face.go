@@ -2,6 +2,7 @@ package ws
 
 import (
 	"gitlab.com/fastogt/gofastocloud/gofastocloud/media"
+
 	res "gitlab.com/fastogt/machine-learning/face_detection/golang/internal/resolver"
 	"gitlab.com/fastogt/machine-learning/face_detection/golang/pkg/logger"
 	"gitlab.com/fastogt/machine-learning/face_detection/golang/pkg/utils"
