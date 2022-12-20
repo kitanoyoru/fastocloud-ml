@@ -8,7 +8,7 @@ export GO111MODULE=on
 all: build
 
 build:
-	go build -v -o ${BINARY_NAME}
+	go build -v -o ${BINARY_NAME} ./cmd
 
 clean:
 	rm -f ${BINARY_NAME}

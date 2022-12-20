@@ -24,7 +24,7 @@ func ReadConfigFile() (*FastocloudConfig, *FaceRecognitionResolverConfig) {
 		viper.GetString("fastocloud.password"),
 	)
 
-	rc := NewResolverConfig(
+	rc := NewFaceRecognitionResolverConfig(
 		viper.GetString("face-recognition.embeddingsPath"),
 		viper.GetString("face-recognition.namesPath"),
 	)

@@ -1,7 +1,7 @@
 fastocloud:
-  endpoint: ""
-  login: ""
-  password: ""
+  endpoint: "http://sg2.ivrata.com:8088"
+  login: "fastocloud"
+  password: "fastocloud"
 
 face-recognition:
   embeddingsPath: ""

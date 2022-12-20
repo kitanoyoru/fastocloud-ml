@@ -13,16 +13,16 @@ import (
 type App struct {
 	cliConfig                     *config.CliConfig
 	fastocloudConfig              *config.FastocloudConfig
-	faceRecognitionResolverConfig *config.ResolverConfig
+	resolverConfig *config.FaceRecognitionResolverConfig
 }
 
-func NewApp(cc config.CliConfig) *App {
+func NewApp(cc *config.CliConfig) *App {
 	fc, fr := config.ReadConfigFile()
 
 	return &App{
 		cliConfig:                     cc,
 		fastocloudConfig:              fc,
-		faceRecognitionResolverConfig: fr,
+		resolverConfig: fr,
 	}
 }
 
@@ -32,16 +32,25 @@ func (a *App) Run() {
 		&a.fastocloudConfig.Login,
 		&a.fastocloudConfig.Password,
 	)
-
+  
+  // TODO: Make it more cleaner
+  if a.cliConfig.Mode == 1 {
 	// TODO: Load files through goroutines
-	embeddings := utils.LoadNPZFile(a.resolverConfig.PathToEmbeddings)
-	names := utils.LoadNamesFile(a.resolverConfig.PathToNames)
+    embeddings := utils.LoadNPZFile(a.resolverConfig.PathToEmbeddings)
+    names := utils.LoadNamesFile(a.resolverConfig.PathToNames)
 
-	r := resolver.NewFaceResolver(embeddings, names)
+    r := resolver.NewFaceResolver(embeddings, names)
 
-	wsClient := ws.NewWSClient(r)
+    wsClient := ws.NewFaceRecognitionWSClient(r)
 
-	logger.Infof("Start listening Fastocloud websocket on host %s", a.fastocloudConfig.Endpoint)
-	fastocloud.Run(wsClient)
-	logger.Info("Stop listening Fastocloud websocket")
+    logger.Infof("Start listening Fastocloud websocket on host %s", a.fastocloudConfig.Endpoint)
+    fastocloud.Run(wsClient)
+    logger.Info("Stop listening Fastocloud websocket")
+  } else if a.cliConfig.Mode == 2 {
+    wsClient := ws.NewLpdWSClient()
+
+    logger.Infof("Start listening Fastocloud websocket on host %s", a.fastocloudConfig.Endpoint)
+    fastocloud.Run(wsClient)
+    logger.Info("Stop listening Fastocloud websocket")
+  }
 }

@@ -2,8 +2,10 @@ package main
 
 import (
 	"flag"
+	"fmt"
 
 	"gitlab.com/fastogt/machine-learning/face_detection/golang/internal/app"
+	"gitlab.com/fastogt/machine-learning/face_detection/golang/pkg/config"
 )
 
 func main() {
@@ -11,7 +13,9 @@ func main() {
 
 	flag.Parse()
 
-	cliConfig := NewCliConfig(*modeFlag)
+  fmt.Println(*modeFlag)
+
+	cliConfig := config.NewCliConfig(*modeFlag)
 
 	app := app.NewApp(cliConfig)
 	app.Run()
